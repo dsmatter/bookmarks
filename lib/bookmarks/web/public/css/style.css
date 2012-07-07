@@ -1,0 +1,120 @@
+body {
+  font-family: sans-serif;
+  background: #deeef9;
+  color: #fbfdfe;
+}
+
+a {
+  color: #FFD250;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #FFE69F;
+}
+
+#area {
+  background: #4fa3de;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 800px;
+  box-shadow: 2px 2px 8px 1px #0f3652;
+}
+
+#content {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
+#header {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  text-align: center;
+  font-size: 52px;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 50px;
+  text-shadow: 5px #624e38;
+}
+
+.hline {
+  margin: 20px;
+  border: 1px solid #a5d0ee;
+}
+
+#login,
+#registration {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #18537c;
+  border-radius: 10px;
+}
+
+#login label,
+#registration label {
+  font-family: sans]serif;
+}
+
+#login input[type="text"],
+#login input[type="password"],
+#registration input[type="text"],
+#registration input[type="password"] {
+  font-family: sans-serif;
+  font-size: 0.8em;
+  line-height: 140%;
+  padding: 3px;
+  border: 1px solid #18537c;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 295px;
+}
+
+#login input[type="submit"],
+#registration input[type="submit"] {
+  display: block;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#register {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+#footer {
+  text-align: center;
+  font-size: small;
+  padding: 20px;
+  color: #97c8eb;
+}
+
+#userpane ul {
+  margin-bottom: 50px;
+  padding: 10px;
+  background: #419cdb;
+  border: 1px solid #3394d8;
+}
+
+#userpane ul li {
+  display: inline;
+}
+
+#logout {
+  float: right;
+}

@@ -1,0 +1,10 @@
+#login
+	%form{:id => 'login_form', :method => 'post', :action => '/login'}
+		%label{:for => 'user'} Username
+		%input{:name => 'user', :type => 'text'}
+		%label{:for => 'password'} Password
+		%input{:name => 'password', :type => 'password'}
+		%input{:type => 'submit', :value => 'Login'}
+#register
+	No account yet?
+	%a{:href => "/register"} Register here
