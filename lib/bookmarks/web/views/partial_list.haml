@@ -1,0 +1,13 @@
+.list{:id => "list-#{list.id}"}
+	.list_header
+		.title= list.title
+		.actions
+			.delete 
+				.confirm unsubscribe
+				.cancel.hidden cancel
+	.bookmarks
+		%ul
+			%li{:id => 'nobookmarks', :class => list.bookmarks.empty? ? 'hi' : 'hidden'} No bookmarks yet :(
+			- list.bookmarks.each do |bookmark|
+				= render :haml, :partial_bookmark, :locals => { :bookmark => bookmark }
+	.addbookmark add bookmark

@@ -2,7 +2,7 @@ require "active_record"
 require "sqlite3"
 require "bookmarks/version"
 require "bookmarks/db/config"
-require "bookmarks/web/WebApp"
+require "bookmarks/web/web_app"
 
 
 module Bookmarks
@@ -10,8 +10,8 @@ module Bookmarks
 	ActiveRecord::Base.establish_connection(DB_CONFIG)
 
 	# Require rest
-	dir_requires = ['bookmarks/models']
-	dir_requires.each do |dir|
+	require_dirs = ['bookmarks/models']
+	require_dirs.each do |dir|
 		Dir[File.join(File.dirname(__FILE__), dir) + '/*.rb'].each do |file|
 			require file
 		end

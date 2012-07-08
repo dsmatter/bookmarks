@@ -1,7 +1,6 @@
-#userpane
-	%ul
-		%li{:id => 'username'} Logged in as
-		%a{:href => '/user'}= user.username
-		%li{:id => 'logout'} 
-			%a{:href => '/logout'} logout
-%h1 Hello world
+= render :haml, :partial_userpane, :locals => { :user => user }
+#nolists{:class => (user.lists.empty? ? 'hi' : 'hidden')} You have no lists :(
+#lists
+	- user.lists.each do |list|
+		= render :haml, :partial_list, :locals => { :list => list }
+#addlist add list

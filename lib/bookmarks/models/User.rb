@@ -7,6 +7,7 @@ module Bookmarks
 		validates_confirmation_of :passphrase
 
 		attr_protected :id, :salt
+		has_and_belongs_to_many :lists
 		before_create :initial_values
 
 		def self.random_string(len)

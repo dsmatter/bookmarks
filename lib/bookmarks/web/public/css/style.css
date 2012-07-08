@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background: #deeef9;
+  background: #b3d7f1;
   color: #fbfdfe;
 }
 
@@ -46,6 +46,10 @@ a:hover {
   text-shadow: 5px #624e38;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .hline {
   margin: 20px;
   border: 1px solid #a5d0ee;
@@ -61,15 +65,12 @@ a:hover {
   border-radius: 10px;
 }
 
-#login label,
-#registration label {
+label {
   font-family: sans]serif;
 }
 
-#login input[type="text"],
-#login input[type="password"],
-#registration input[type="text"],
-#registration input[type="password"] {
+input[type="text"],
+input[type="password"] {
   font-family: sans-serif;
   font-size: 0.8em;
   line-height: 140%;
@@ -80,8 +81,7 @@ a:hover {
   width: 295px;
 }
 
-#login input[type="submit"],
-#registration input[type="submit"] {
+input[type="submit"] {
   display: block;
   width: 100px;
   margin-left: auto;
@@ -107,7 +107,7 @@ a:hover {
 #userpane ul {
   margin-bottom: 50px;
   padding: 10px;
-  background: #419cdb;
+  background: #2070a7;
   border: 1px solid #3394d8;
 }
 
@@ -117,4 +117,108 @@ a:hover {
 
 #logout {
   float: right;
+}
+
+#addlist {
+  color: #FFD250;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #1a5c8b;
+  cursor: pointer;
+}
+
+#addlist.selected {
+  color: #FFE69F;
+  background: #2583c4;
+}
+
+#nolists {
+  margin-bottom: 40px;
+}
+
+.list {
+  background: #4fa3de;
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: 2px 2px 8px 1px #124060;
+}
+
+.list .list_header {
+  /*cursor: pointer;*/
+}
+
+.list .title {
+  display: inline;
+  color: #FFE69F;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.list .title.selected {
+  color: #FFD250;
+}
+
+.list .actions {
+  display: inline;
+  float: right;
+  cursor: pointer;
+}
+
+.list .delete, .delete_bookmark {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #FFB99F;
+}
+
+.list .delete .confirm {
+  display: inline;
+}
+
+.list .delete .confirm.selected,
+.delete_bookmark.selected {
+  color: #A6401A;
+}
+
+.list .delete .cancel {
+  display: inline;
+  margin-left: 10px;
+}
+
+.list .delete .cancel.selected {
+  color: #A6401A;
+}
+
+.list .bookmarks {
+  margin-top: 20px;
+  padding: 20px;
+  background: #419cdb;
+  border: 1px solid #2583c4;
+  margin-left: 10px;
+}
+
+.list .bookmarks ul {
+  list-style: none;
+}
+
+.list .bookmarks ul li {
+  font-size: 1.2em;
+  padding: 5px;
+  margin-left: -20px;
+}
+
+.addbookmark {
+  color: #FFD250;
+  font-size: 1.0em;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
+  border: 1px solid #1a5c8b;
+  cursor: pointer;
+}
+
+.addbookmark.selected {
+  color: #FFE69F;
+  background: #2583c4;
 }
