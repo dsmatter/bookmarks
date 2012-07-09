@@ -1,20 +1,20 @@
 body {
   font-family: sans-serif;
   background: #b3d7f1;
-  color: #fbfdfe;
+  color: #1d6699;
 }
 
 a {
-  color: #FFD250;
+  color: #0f3652;
   text-decoration: none;
 }
 
 a:hover {
-  color: #FFE69F;
+  color: #288cd2;
 }
 
 #area {
-  background: #4fa3de;
+  background: #97c8eb;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -52,7 +52,7 @@ a:hover {
 
 .hline {
   margin: 20px;
-  border: 1px solid #a5d0ee;
+  border: 1px solid #0f3652;
 }
 
 #login,
@@ -107,7 +107,7 @@ input[type="submit"] {
 #userpane ul {
   margin-bottom: 50px;
   padding: 10px;
-  background: #2070a7;
+  /*background: #2070a7;*/
   border: 1px solid #3394d8;
 }
 
@@ -120,16 +120,15 @@ input[type="submit"] {
 }
 
 #addlist {
-  color: #FFD250;
   font-size: 1.2em;
   text-align: center;
   padding: 10px;
-  border: 1px solid #1a5c8b;
+  border: 1px solid #3394d8;
   cursor: pointer;
 }
 
 #addlist.selected {
-  color: #FFE69F;
+  color: #88c1e9;
   background: #2583c4;
 }
 
@@ -138,10 +137,11 @@ input[type="submit"] {
 }
 
 .list {
-  background: #4fa3de;
+  /*background: #deeef9;*/
   padding: 30px;
   margin-bottom: 50px;
-  box-shadow: 2px 2px 8px 1px #124060;
+  border: 1px solid #3394d8;
+  /*box-shadow: 2px 2px 8px 1px #124060;*/
 }
 
 .list .list_header {
@@ -150,13 +150,13 @@ input[type="submit"] {
 
 .list .title {
   display: inline;
-  color: #FFE69F;
+  /*color: #FFE69F;*/
   font-size: 1.4em;
   font-weight: bold;
 }
 
 .list .title.selected {
-  color: #FFD250;
+  color: #288cd2;
 }
 
 .list .actions {
@@ -166,9 +166,10 @@ input[type="submit"] {
 }
 
 .list .delete, .delete_bookmark {
+  display: inline;
   font-size: 1.0em;
   font-weight: bold;
-  color: #FFB99F;
+  /*color: #FFB99F;*/
 }
 
 .list .delete .confirm {
@@ -192,8 +193,8 @@ input[type="submit"] {
 .list .bookmarks {
   margin-top: 20px;
   padding: 20px;
-  background: #419cdb;
-  border: 1px solid #2583c4;
+  /*background: #419cdb;*/
+  border: 1px solid #3394d8;
   margin-left: 10px;
 }
 
@@ -208,17 +209,41 @@ input[type="submit"] {
 }
 
 .addbookmark {
-  color: #FFD250;
+  /*color: #FFD250;*/
   font-size: 1.0em;
   text-align: center;
   padding: 10px;
   margin-top: 20px;
   margin-left: 10px;
-  border: 1px solid #1a5c8b;
+  border: 1px solid #3394d8;
   cursor: pointer;
 }
 
 .addbookmark.selected {
-  color: #FFE69F;
+  color: #88c1e9;
   background: #2583c4;
+}
+
+.edit_bookmark {
+  display: inline;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-right: 10px;
+  /*color: #FFD250;*/
+}
+
+.edit_bookmark.selected {
+  color: #288cd2;
+}
+
+.link a {
+  /*color: #fbfdfe;*/
+}
+
+.link a:hover {
+  /*color: #FFE69F;*/
+}
+
+.link input {
+  color: black !important;
 }

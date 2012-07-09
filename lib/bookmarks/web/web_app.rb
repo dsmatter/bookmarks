@@ -93,9 +93,8 @@ module Bookmarks
 				p get_user.lists
 
 				# Check if user is subscribed to the list
-				raise 'Forbidden list' unless get_user.lists.any? { |l|  l.id == list.id }
+				raise 'Access denied' unless get_user.lists.any? { |l|  l.id == list.id }
 
-				p "here"
 				new_bookmark = list.bookmarks.create :title => 'New bookmark', :url => 'http://www.google.de'
 				haml :partial_bookmark, :layout => false, :locals => {
 					:bookmark => new_bookmark
@@ -111,6 +110,21 @@ module Bookmarks
 				Bookmark.find_by_id(params[:id]).delete
 				"OK"
 			rescue => e
+				302
+			end
+		end
+
+		post '/bookmark/:id' do
+			begin
+				bookmark = Bookmark.find_by_id(params[:id]);
+
+				# Check if bookmark belongs to user
+				raise 'Access denied' unless bookmark.list.users.include? get_user
+
+				bookmark.update_attributes :title => params[:title], :url => params[:url]
+				"OK"
+			rescue => e
+				p e
 				302
 			end
 		end

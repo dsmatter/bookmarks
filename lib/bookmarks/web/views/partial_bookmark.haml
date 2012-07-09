@@ -1,4 +1,6 @@
 %li{:id => "bookmark-#{bookmark.id}", :class => 'bookmark'}
 	.actions
+		.edit_bookmark edit
 		.delete_bookmark ✗
-	.link= bookmark.title
+	.link 
+		%a{:href => bookmark.url, :target => '_blank'}= bookmark.title
