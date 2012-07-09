@@ -45,8 +45,10 @@ module Bookmarks
 		use LoginScreen
 
 		before do
-			unless session[:user]
-				redirect '/login'
+			unless request.path =~ /^\/api/
+				unless session[:user]
+					redirect '/login'
+				end
 			end
 		end
 
@@ -54,8 +56,18 @@ module Bookmarks
 			User.find_by_id(session[:user])
 		end
 
+		def get_user_by_api_key(key)
+			Token.find_by_key!(key).user
+		end
+
 		get '/' do
 			haml :overview, :locals => {
+				:user => get_user
+			}
+		end
+
+		get '/user' do
+			haml :user, :locals => {
 				:user => get_user
 			}
 		end
@@ -69,10 +81,15 @@ module Bookmarks
 
 		delete '/list/:id' do
 			begin
-				List.find_by_id(params[:id]).delete
+				list = List.find_by_id!(params[:id])
+
+				# Check if user is subscribed to list
+				raise 'Access denied' unless list.users.include?(get_user)
+
+				list.delete
 				"OK"
 			rescue
-				302
+				400
 			end
 		end
 
@@ -82,7 +99,7 @@ module Bookmarks
 				list.update_attributes :title => params[:title]
 				"OK"
 			rescue => e
-				302
+				400
 			end
 		end
 
@@ -101,7 +118,7 @@ module Bookmarks
 				}
 			rescue => e
 				p e
-				302
+				400
 			end
 		end
 
@@ -110,7 +127,7 @@ module Bookmarks
 				Bookmark.find_by_id(params[:id]).delete
 				"OK"
 			rescue => e
-				302
+				400
 			end
 		end
 
@@ -125,7 +142,49 @@ module Bookmarks
 				"OK"
 			rescue => e
 				p e
-				302
+				400
+			end
+		end
+
+		get '/tokens/new' do
+			begin
+				new_token = get_user.tokens.create!
+				haml :partial_token, :layout => false, :locals => {
+					:token => new_token
+				}
+			rescue => e
+				400
+			end
+		end
+
+		delete '/tokens/:id' do
+			begin
+				token = Token.find_by_id(params[:id])
+
+				# Check if token belongs to user
+				raise 'Access denied' unless token.user == get_user
+
+				token.delete
+				"OK"
+			rescue => e
+				400
+			end
+		end
+
+		get '/api/bookmarks/add' do
+			begin
+				# Find the user
+				user = get_user_by_api_key(params[:token])
+
+				# Get the list
+				list = params[:list] || user.lists.first
+				raise 'No list' unless list
+
+				# Add bookmark
+				list.bookmarks.create! :title => params[:title], :url => params[:url]
+				"OK"
+			rescue => e
+				400
 			end
 		end
 	end

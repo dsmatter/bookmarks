@@ -8,6 +8,7 @@ module Bookmarks
 
 		attr_protected :id, :salt
 		has_and_belongs_to_many :lists
+		has_many :tokens
 		before_create :initial_values
 
 		def self.random_string(len)

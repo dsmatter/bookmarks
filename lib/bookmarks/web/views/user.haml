@@ -1,0 +1,17 @@
+#user
+	%h2 User info
+	%form{:id => 'user_form', :method => 'POST', :action => '/user'}
+		%label{:for => 'username'} Username
+		%input{:name => 'username', :type => 'text', :value => user.username}
+		%label{:for => 'passphrase'} Password
+		%input{:name => 'passphrase', :type => 'password'}
+		%label{:for => 'passphrase_confirmation'} Password confirmation
+		%input{:name => 'passphrase_confirmation', :type => 'password'}
+		%label{:for => 'email'} Email
+		%input{:name => 'email', :type => 'text', :value => user.email}
+		%input{:type => 'submit', :value => 'Update'}
+	#tokens
+		%h2 Tokens
+		- user.tokens.each do |token|
+			= render :haml, :partial_token, :locals => { :token => token }
+	#addtoken add token

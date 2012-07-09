@@ -71,6 +71,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
+  display: block;
   font-family: sans-serif;
   font-size: 0.8em;
   line-height: 140%;
@@ -84,9 +85,9 @@ input[type="password"] {
 input[type="submit"] {
   display: block;
   width: 100px;
-  margin-left: auto;
+/*  margin-left: auto;
   margin-right: auto;
-}
+*/}
 
 #register {
   width: 300px;
@@ -208,7 +209,8 @@ input[type="submit"] {
   margin-left: -20px;
 }
 
-.addbookmark {
+.addbookmark,
+#addtoken {
   /*color: #FFD250;*/
   font-size: 1.0em;
   text-align: center;
@@ -219,7 +221,8 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-.addbookmark.selected {
+.addbookmark.selected,
+#addtoken.selected {
   color: #88c1e9;
   background: #2583c4;
 }
@@ -246,4 +249,27 @@ input[type="submit"] {
 
 .link input {
   color: black !important;
+}
+
+#tokens {
+  margin-top: 50px;
+}
+
+#user_form {
+  margin-left: 10px;
+}
+
+.token .key,
+.token .delete {
+  display: inline;
+  margin-left: 10px;
+}
+
+.token .delete {
+  float: right;
+  cursor: pointer;
+}
+
+.token .delete.selected {
+  color: #A6401A;
 }
