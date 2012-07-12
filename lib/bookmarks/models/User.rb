@@ -48,5 +48,13 @@ module Bookmarks
 			@passphrase
 		end
 
+		def friends
+			self.lists.map(&:users).flatten.uniq.reject { |u| u.id == self.id }
+		end
+
+		def shares_with?(other_user)
+			friends.include?(other_user)
+		end
+
 	end
 end

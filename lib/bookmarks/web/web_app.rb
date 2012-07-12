@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'uri'
 
 module Bookmarks
 	class LoginScreen < Sinatra::Base
@@ -60,6 +61,14 @@ module Bookmarks
 			Token.find_by_key!(key).user
 		end
 
+		def get_list(list_id)
+			list = List.find_by_id!(list_id)
+
+			# Check if user is subscribed to list
+			raise 'Access denied' unless list.users.include?(get_user)
+			list
+		end
+
 		get '/' do
 			haml :overview, :locals => {
 				:user => get_user
@@ -81,11 +90,7 @@ module Bookmarks
 
 		delete '/list/:id' do
 			begin
-				list = List.find_by_id!(params[:id])
-
-				# Check if user is subscribed to list
-				raise 'Access denied' unless list.users.include?(get_user)
-
+				list = get_list(params[:id])
 				list.delete
 				"OK"
 			rescue
@@ -95,7 +100,7 @@ module Bookmarks
 
 		post '/list/:id' do
 			begin
-				list = List.find_by_id(params[:id])
+				list = get_list(params[:id])
 				list.update_attributes :title => params[:title]
 				"OK"
 			rescue => e
@@ -105,12 +110,7 @@ module Bookmarks
 
 		post '/bookmark/new' do
 			begin
-				list = List.find_by_id(params[:list])
-				p list
-				p get_user.lists
-
-				# Check if user is subscribed to the list
-				raise 'Access denied' unless get_user.lists.any? { |l|  l.id == list.id }
+				list = get_list(params[:list])
 
 				new_bookmark = list.bookmarks.create :title => 'New bookmark', :url => 'http://www.google.de'
 				haml :partial_bookmark, :layout => false, :locals => {
@@ -120,6 +120,16 @@ module Bookmarks
 				p e
 				400
 			end
+		end
+
+		get '/bookmarks/quick_new' do
+			haml :quick_new, :locals => { :user => get_user }
+		end
+
+		post '/bookmarks/quick_new' do
+			list = get_list(params[:list])
+			list.bookmarks.create! :title => params[:title], :url => URI.decode(params[:url])
+			redirect '/'
 		end
 
 		delete '/bookmark/:id' do
@@ -142,6 +152,53 @@ module Bookmarks
 				"OK"
 			rescue => e
 				p e
+				400
+			end
+		end
+
+		get '/lists/sharing/:id' do
+			begin
+				list = get_list(params[:id])
+				haml :partial_sharing, :layout => false, :locals => { :list => list }
+			rescue => e
+				400
+			end
+		end
+
+		get '/lists/sharing/:list_id/add' do
+			begin
+				list = get_list(params[:list_id])
+				user = nil
+
+				if params[:user_id]
+					user = User.find_by_id!(params[:user_id])
+
+					# Check if users are sharing already
+					raise 'No friends' unless get_user.shares_with?(user)
+				else
+					user = User.find_by_email!(params[:user_email])
+				end
+
+				raise 'Cannot add yourself' if user == get_user
+
+				list.users << user
+				list.save!
+			rescue => e
+				400
+			end
+		end
+
+		delete '/lists/sharing/:list_id/user/:user_id' do
+			begin
+				list = get_list(params[:list_id])
+
+				# Check if user wants to delete himself
+				# This also avoids fully unsubscribed lists in this step
+				raise 'Cannot delete yourself' if params[:user_id].to_i == get_user.id
+
+				list.users.delete(User.find_by_id!(params[:user_id]))
+				"OK"
+			rescue => e
 				400
 			end
 		end

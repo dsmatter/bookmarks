@@ -209,6 +209,7 @@ input[type="submit"] {
   margin-left: -20px;
 }
 
+.button,
 .addbookmark,
 #addtoken {
   /*color: #FFD250;*/
@@ -221,6 +222,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.button.selected,
 .addbookmark.selected,
 #addtoken.selected {
   color: #88c1e9;
@@ -272,4 +274,61 @@ input[type="submit"] {
 
 .token .delete.selected {
   color: #A6401A;
+}
+
+.overlay {
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 0px;
+  right: 0px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #000000;
+  z-index: 100;
+  opacity: 0.9;
+  padding: 100px 200px;
+}
+
+.overlay div {
+  /*width: 400px;*/
+}
+
+#users .username,
+#users .delete {
+  display: inline;
+}
+
+#users .delete {
+  float: right;
+  width: 50px;
+  text-align: right;
+  cursor: pointer;
+}
+
+#users .delete.selected {
+  color: #A6401A;
+}
+
+.user {
+  padding: 10px;
+}
+
+.user.selected {
+  background: #071a27;
+}
+
+#adduser_form {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#adduser_form label {
+  display: inline;
+}
+
+.padding {
+  padding: 10px;
 }

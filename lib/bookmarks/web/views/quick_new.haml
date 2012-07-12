@@ -1,0 +1,11 @@
+%form{:id => 'quick_add_form', :method => 'POST', :action => '/bookmarks/quick_new'}
+	%label{:for => 'list'} List
+	.padding
+		%select{:name => 'list'}
+			- user.lists.each do |list|
+				%option{:value => list.id}= list.title
+	%label{:for => 'title'} Title
+	%input{:id => 'title', :name => 'title', :type => 'text', :value => 'New Bookmark'}
+	%label{:for => 'url'} URL
+	%input{:name => 'url', :type => 'text', :value => 'http://'}
+	%input{:type => 'submit', :value => 'add'}
