@@ -15,6 +15,6 @@
 	.bookmarks
 		%ul
 			%li{:id => "nobookmarks-#{list.id}", :class => list.bookmarks.empty? ? 'hi' : 'hidden'} No bookmarks yet :(
-			- list.bookmarks.each do |bookmark|
+			- list.bookmarks.sort.each do |bookmark|
 				= render :haml, :partial_bookmark, :locals => { :bookmark => bookmark }
 	.addbookmark add bookmark

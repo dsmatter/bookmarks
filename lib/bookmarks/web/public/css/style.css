@@ -388,3 +388,7 @@ input[type="submit"] {
 .status.ok {
   color: #0f3652;
 }
+
+.draghover {
+  background: #6cb2e3; 
+}

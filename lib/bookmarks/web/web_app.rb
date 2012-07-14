@@ -194,7 +194,7 @@ e				redirect '/user'
 
 		delete '/bookmark/:id' do
 			begin
-				Bookmark.find_by_id(params[:id]).delete
+				Bookmark.find_by_id!(params[:id]).delete
 				"OK"
 			rescue => e
 				400
@@ -203,7 +203,7 @@ e				redirect '/user'
 
 		post '/bookmark/:id' do
 			begin
-				bookmark = Bookmark.find_by_id(params[:id]);
+				bookmark = Bookmark.find_by_id!(params[:id]);
 
 				# Check if bookmark belongs to user
 				raise 'Access denied' unless bookmark.list.users.include? get_user
@@ -217,6 +217,24 @@ e				redirect '/user'
 				haml :partial_bookmark, :layout => false, :locals => { :bookmark => bookmark }
 			rescue => e
 				p e
+				400
+			end
+		end
+
+		get '/bookmark/:bookmark_id/move/:list_id' do
+			begin
+				bookmark = Bookmark.find_by_id!(params[:bookmark_id])
+
+				# Check if bookmark belongs to user
+				raise 'Access denied' unless bookmark.list.users.include? get_user
+
+				old_list = bookmark.list
+				new_list = get_list(params[:list_id])
+				
+				bookmark.list = new_list
+				bookmark.save!
+				haml :partial_list, :layout => false, :locals => { :list => old_list }
+			rescue => e
 				400
 			end
 		end

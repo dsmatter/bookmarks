@@ -20,5 +20,9 @@ module Bookmarks
 				self.title + ' ' + tag_str
 			end
 		end
+
+		def <=>(other)
+			other.created_at <=> self.created_at
+		end
 	end
 end
