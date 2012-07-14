@@ -75,3 +75,10 @@ end
 desc 'Change to development environment'
 task :development => [:unminify_js, :unminify_css] do
 end
+
+desc 'Deploy'
+task :deploy do
+	system "scp pkg/*.gem dawn:"
+	system "ssh dawn 'GEM_HOME=~/.gems gem install *.gem'"
+	system "ssh dawn '/etc/rc.d/bookmarks restart"
+end
