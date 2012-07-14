@@ -3,8 +3,8 @@
 		.edit_bookmark edit
 		.delete_bookmark ✗
 	.link 
-		%a{:href => bookmark.url, :target => '_blank'}= bookmark.title
+		%a{:href => bookmark.url, :target => '_blank'}&= bookmark.title
 	.tags
 		%ul
 			- bookmark.tags.each do |tag|
-				%li= '@' + tag.name
+				%li&= '@' + tag.name

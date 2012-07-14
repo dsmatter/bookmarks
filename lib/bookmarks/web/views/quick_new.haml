@@ -3,7 +3,7 @@
 	.padding
 		%select{:name => 'list'}
 			- user.lists.each do |list|
-				%option{:value => list.id, :selected => list.id == list_id.to_i}= list.title
+				%option{:value => list.id, :selected => list.id == list_id.to_i}&= list.title
 	%label{:for => 'title'} Title
 	%input{:id => 'title', :name => 'title', :type => 'text', :value => title}
 	%label{:for => 'url'} URL
