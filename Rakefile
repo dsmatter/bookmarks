@@ -77,7 +77,7 @@ task :development => [:unminify_js, :unminify_css] do
 end
 
 desc 'Deploy'
-task :deploy do
+task :deploy => production do
 	system "scp pkg/*.gem dawn:"
 	system "ssh dawn 'GEM_HOME=~/.gems gem install *.gem'"
 	system "ssh dawn '/etc/rc.d/bookmarks restart"

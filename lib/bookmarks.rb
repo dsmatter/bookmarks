@@ -17,4 +17,18 @@ module Bookmarks
 			require file
 		end
 	end
+
+	class Notifier
+		def initialize(email)
+			@email = email
+		end
+
+		def mail(subject, content)
+			cmd = "echo \"#{content}\" | mail -s \"#{subject}\" \"#{@email}\""
+			puts cmd
+			system cmd
+		end
+	end
+
+	AdminNotifier = Notifier.new('webmaster@smattr.de')
 end

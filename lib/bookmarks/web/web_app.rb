@@ -35,6 +35,7 @@ module Bookmarks
 			begin
 				new_user = User.create!(params)
 				session[:user] = new_user.id
+				AdminNotifier.mail('[Bookmarks] New user', "New user: #{new_user.username}\n#{new_user.email}")
 				redirect '/'
 			rescue => e
 				puts e
