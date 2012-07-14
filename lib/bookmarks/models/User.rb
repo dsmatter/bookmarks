@@ -9,6 +9,7 @@ module Bookmarks
 		attr_protected :id, :salt
 		has_and_belongs_to_many :lists
 		has_many :tokens
+		before_validation :setup_passphrase
 		before_create :initial_values
 
 		def self.random_string(len)
@@ -36,6 +37,13 @@ module Bookmarks
 		def initial_values
 			self.active = true
 			self.created_at = Time.now
+		end
+
+		def setup_passphrase
+			if self.password && !self.password.empty?
+				@passphrase = 'dummyvalue'
+				@passphrase_confirmation = 'dummyvalue'
+			end
 		end
 
 		def passphrase=(pass)

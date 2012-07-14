@@ -14,7 +14,8 @@ module Bookmarks
 			user = User.authenticate(params[:user], params[:password])
 			if user
 				session[:user] = user.id
-				redirect '/'
+				redirect session[:intented_url] || '/'
+				session[:intented_url] = nil
 			else
 				redirect '/login'
 			end
@@ -32,7 +33,7 @@ module Bookmarks
 
 		post '/register' do
 			begin
-				new_user = User.create(params)
+				new_user = User.create!(params)
 				session[:user] = new_user.id
 				redirect '/'
 			rescue => e
@@ -46,8 +47,11 @@ module Bookmarks
 		use LoginScreen
 
 		before do
-			unless request.path =~ /^\/api/
+			unless request.path =~ /^\/(api|register)/
 				unless session[:user]
+					unless request.path =~ /favicon/
+						session[:intented_url] = request.url
+					end
 					redirect '/login'
 				end
 			end
@@ -69,6 +73,17 @@ module Bookmarks
 			list
 		end
 
+		def get_tags(title)
+			title.scan(/@(\w+)/).map(&:first).map do |tag|
+				Tag.find_by_name(tag) || Tag.create!(:name => tag)
+			end
+		end
+
+		def remove_tags(title, tags)
+			tags.map(&:name).each { |tag| title.sub! /@#{tag}/, ''}
+			title.strip
+		end
+
 		get '/' do
 			haml :overview, :locals => {
 				:user => get_user
@@ -81,6 +96,26 @@ module Bookmarks
 			}
 		end
 
+		post '/user' do
+			begin
+				user = get_user
+				user.update_attributes!(
+					:username => params[:username],
+					:email => params[:email]
+				)
+				if params[:passphrase] && !params[:passphrase].empty?
+					user.update_attributes!(
+						:passphrase => params[:passphrase],
+						:passphrase_confirmation => params[:passphrase_confirmation]
+					)
+				end
+				redirect '/'
+			rescue => e
+				p e
+e				redirect '/user'
+			end
+		end
+
 		get '/new_list' do
 			new_list = get_user.lists.create :title => 'New list'
 			haml :partial_list, :layout => false, :locals => {
@@ -88,12 +123,25 @@ module Bookmarks
 			}
 		end
 
+		get '/list/:id' do
+			begin
+				list = get_list(params[:id])
+				haml :partial_list, :layout => false, :locals => {
+					:list => list
+				}
+			rescue => e
+				400
+			end
+		end
+
 		delete '/list/:id' do
 			begin
 				list = get_list(params[:id])
-				list.delete
-				"OK"
-			rescue
+				list.users.delete(get_user)
+				list.delete if list.users.empty?
+				200
+			rescue => e
+				p e
 				400
 			end
 		end
@@ -123,12 +171,23 @@ module Bookmarks
 		end
 
 		get '/bookmarks/quick_new' do
-			haml :quick_new, :locals => { :user => get_user }
+			haml :quick_new, :locals => { 
+				:user => get_user,
+				:title => params[:title] || 'New bookmark',
+				:url => params[:url] || 'http://',
+				:list_id => params[:list]
+			}
 		end
 
 		post '/bookmarks/quick_new' do
 			list = get_list(params[:list])
-			list.bookmarks.create! :title => params[:title], :url => URI.decode(params[:url])
+			title = params[:title]
+			tags = get_tags(title)
+			title = remove_tags(title, tags)
+
+			new_bookmark = list.bookmarks.create! :title => title, :url => params[:url]
+			new_bookmark.tags = tags
+			new_bookmark.save!
 			redirect '/'
 		end
 
@@ -148,8 +207,13 @@ module Bookmarks
 				# Check if bookmark belongs to user
 				raise 'Access denied' unless bookmark.list.users.include? get_user
 
-				bookmark.update_attributes :title => params[:title], :url => params[:url]
-				"OK"
+				title = params[:title]
+				tags = get_tags(title)
+				bookmark.tags = tags
+				title = remove_tags(title, tags)
+
+				bookmark.update_attributes! :title => title, :url => params[:url]
+				haml :partial_bookmark, :layout => false, :locals => { :bookmark => bookmark }
 			rescue => e
 				p e
 				400
@@ -183,6 +247,7 @@ module Bookmarks
 
 				list.users << user
 				list.save!
+				haml :partial_sharing_user, :layout => false, :locals => { :user => user }
 			rescue => e
 				400
 			end
@@ -198,6 +263,15 @@ module Bookmarks
 
 				list.users.delete(User.find_by_id!(params[:user_id]))
 				"OK"
+			rescue => e
+				400
+			end
+		end
+
+		post '/api/username/check' do
+			begin
+				User.find_by_username!(params[:username]);
+				200
 			rescue => e
 				400
 			end

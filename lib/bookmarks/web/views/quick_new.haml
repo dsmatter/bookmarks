@@ -3,9 +3,9 @@
 	.padding
 		%select{:name => 'list'}
 			- user.lists.each do |list|
-				%option{:value => list.id}= list.title
+				%option{:value => list.id, :selected => list.id == list_id.to_i}= list.title
 	%label{:for => 'title'} Title
-	%input{:id => 'title', :name => 'title', :type => 'text', :value => 'New Bookmark'}
+	%input{:id => 'title', :name => 'title', :type => 'text', :value => title}
 	%label{:for => 'url'} URL
-	%input{:name => 'url', :type => 'text', :value => 'http://'}
+	%input{:name => 'url', :type => 'text', :value => url}
 	%input{:type => 'submit', :value => 'add'}
