@@ -1,0 +1,8 @@
+= render :haml, :partial_userpane, :locals => { :user => user }
+.list
+	.list_header
+		.title= title
+	.bookmarks
+		%ul
+			- bookmarks.each do |bookmark|
+				= render :haml, :partial_bookmark, :locals => { :bookmark => bookmark }

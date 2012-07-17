@@ -64,5 +64,13 @@ module Bookmarks
 			friends.include?(other_user)
 		end
 
+		def bookmarks
+			self.lists.map(&:bookmarks).flatten
+		end
+
+		def bookmarks_with_tag(tag)
+			self.bookmarks.select { |bookmark| bookmark.tags.include? tag }
+		end
+
 	end
 end

@@ -146,13 +146,16 @@ input[type="submit"] {
   /*box-shadow: 2px 2px 8px 1px #124060;*/
 }
 
-.list_header_table {
-  width: 100%;
+.list_header {
+  background: #88c1e9;
   padding-left: 20px;
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: #88c1e9;
+}
+
+.list_header_table {
+  width: 100%;
 }
 
 .list .title {
@@ -374,6 +377,14 @@ input[type="submit"] {
   display: inline;
   font-size: 12px;
   margin-left: 5px;
+}
+
+.tags a {
+  color: #1d6699;
+}
+
+.tags a:hover {
+  color: #288cd2;
 }
 
 .status {

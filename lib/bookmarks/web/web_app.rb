@@ -292,6 +292,21 @@ e				redirect '/user'
 			end
 		end
 
+		get '/tags/:tag' do
+			begin
+				tag = Tag.find_by_name!(params[:tag])
+				haml :bookmarks, :locals => { 
+					:user => get_user, 
+					:bookmarks => get_user.bookmarks_with_tag(tag),
+					:title => "Tagged with '#{tag.name}'"
+				}
+			rescue => e
+				400
+			end
+		end
+
+		### API functions ###
+
 		post '/api/username/check' do
 			begin
 				User.find_by_username!(params[:username]);

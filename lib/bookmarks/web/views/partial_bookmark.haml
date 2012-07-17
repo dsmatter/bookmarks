@@ -7,4 +7,5 @@
 	.tags
 		%ul
 			- bookmark.tags.each do |tag|
-				%li&= '@' + tag.name
+				%li
+					%a{:href => "/tags/#{tag.name}"}&= '@' + tag.name
