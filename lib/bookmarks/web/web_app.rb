@@ -166,7 +166,7 @@ e				redirect '/user'
 			begin
 				list = get_list(params[:list])
 
-				new_bookmark = list.bookmarks.create :title => 'New bookmark', :url => 'http://www.google.de'
+				new_bookmark = list.bookmarks.create! :title => 'New bookmark', :url => 'http://www.google.de'
 				haml :partial_bookmark, :layout => false, :locals => {
 					:bookmark => new_bookmark
 				}
@@ -194,6 +194,7 @@ e				redirect '/user'
 			new_bookmark = list.bookmarks.create! :title => title, :url => params[:url]
 			new_bookmark.tags = tags
 			new_bookmark.save!
+			new_bookmark.notify(get_user)
 			redirect '/'
 		end
 
@@ -218,7 +219,9 @@ e				redirect '/user'
 				bookmark.tags = tags
 				title = remove_tags(title, tags)
 
+				notify = bookmark.title == 'New bookmark'
 				bookmark.update_attributes! :title => title, :url => params[:url]
+				bookmark.notify(get_user) if notify
 				haml :partial_bookmark, :layout => false, :locals => { :bookmark => bookmark }
 			rescue => e
 				p e
@@ -351,7 +354,8 @@ e				redirect '/user'
 				raise 'No list' unless list
 
 				# Add bookmark
-				list.bookmarks.create! :title => params[:title], :url => params[:url]
+				new_bookmark = list.bookmarks.create! :title => params[:title], :url => params[:url]
+				new_bookmark.notify(user)
 				"OK"
 			rescue => e
 				400

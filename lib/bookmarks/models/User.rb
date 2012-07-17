@@ -72,5 +72,9 @@ module Bookmarks
 			self.bookmarks.select { |bookmark| bookmark.tags.include? tag }
 		end
 
+		def notifier
+			Notifier.new self.email
+		end
+
 	end
 end

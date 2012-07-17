@@ -24,5 +24,16 @@ module Bookmarks
 		def <=>(other)
 			other.created_at <=> self.created_at
 		end
+
+		def notify(excluded_user=nil)
+			self.list.users.reject { |user| user == excluded_user }.each do |user|
+				tag_string = self.tags.map { |tag| "@#{tag.name}" }.join(' ')
+				begin
+					user.notifier.mail("[Bookmarks] New bookmark in #{self.list.title}", "%s\n%s\n%s" %
+						[self.title, tag_string, self.url])
+				rescue # may fail
+				end
+			end
+		end
 	end
 end
