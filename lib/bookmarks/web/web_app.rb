@@ -51,7 +51,12 @@ module Bookmarks
 			unless request.path =~ /^\/(api|register)/
 				unless session[:user]
 					unless request.path =~ /favicon/
-						session[:intented_url] = request.url
+						# Save the requested URL
+						url = request.path
+						unless request.query_string.empty?
+							url += '?' + request.query_string
+						end
+						session[:intented_url] = url
 					end
 					redirect '/login'
 				end
