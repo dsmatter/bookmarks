@@ -10,5 +10,12 @@ module Bookmarks
 			self.created_at = Time.now
 		end
 
+		def notify_sharing_add(user)
+			user.notifier.mail("[Bookmarks] The list '#{self.title}' is now shared with you", '')
+		end
+
+		def notify_sharing_remove(user)
+			user.notifier.mail("[Bookmarks] You were removed from the list '#{self.title}'", '')
+		end
 	end
 end

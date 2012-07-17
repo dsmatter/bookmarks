@@ -24,9 +24,12 @@ module Bookmarks
 		end
 
 		def mail(subject, content)
-			cmd = "echo \"#{content}\" | mail -s \"#{subject}\" \"#{@email}\""
-			puts cmd
-			system cmd
+			begin
+				cmd = "echo \"#{content}\" | mail -s \"#{subject}\" \"#{@email}\""
+				puts cmd
+				system cmd
+			rescue # may fail
+			end
 		end
 	end
 

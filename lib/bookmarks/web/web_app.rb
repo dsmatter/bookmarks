@@ -274,6 +274,7 @@ e				redirect '/user'
 
 				list.users << user
 				list.save!
+				list.notify_sharing_add(user)
 				haml :partial_sharing_user, :layout => false, :locals => { :user => user }
 			rescue => e
 				400
@@ -288,9 +289,12 @@ e				redirect '/user'
 				# This also avoids fully unsubscribed lists in this step
 				raise 'Cannot delete yourself' if params[:user_id].to_i == get_user.id
 
-				list.users.delete(User.find_by_id!(params[:user_id]))
+				user = User.find_by_id!(params[:user_id])
+				list.users.delete(user)
+				list.notify_sharing_remove(user)
 				"OK"
 			rescue => e
+				p e
 				400
 			end
 		end
