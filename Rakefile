@@ -81,4 +81,5 @@ task :deploy => [:production, :build] do
 	system "scp pkg/*.gem dawn:"
 	system "ssh dawn 'GEM_HOME=~/.gems gem install *.gem'"
 	system "ssh dawn '/etc/rc.d/bookmarks restart'"
+	system "rake development"
 end
