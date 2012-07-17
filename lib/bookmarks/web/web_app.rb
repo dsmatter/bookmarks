@@ -308,6 +308,19 @@ e				redirect '/user'
 					:title => "Tagged with '#{tag.name}'"
 				}
 			rescue => e
+				p e
+				400
+			end
+		end
+
+
+		get '/newest' do
+			begin
+				haml :partial_bookmarks, :layout => false, :locals => {
+					:title => 'Newest bookmarks',
+					:bookmarks => get_user.newest_bookmarks
+				}
+			rescue => e
 				400
 			end
 		end

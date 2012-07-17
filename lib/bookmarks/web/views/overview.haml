@@ -1,5 +1,8 @@
 = render :haml, :partial_userpane, :locals => { :user => user }
 #nolists{:class => (user.lists.empty? ? 'hi' : 'hidden')} You have no lists :(
+
+#newest
+	= render :haml, :partial_bookmarks, :locals => { :title => 'Newest bookmarks', :bookmarks => user.newest_bookmarks }
 #lists
 	- user.lists.each do |list|
 		= render :haml, :partial_list, :locals => { :list => list }

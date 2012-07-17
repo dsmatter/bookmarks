@@ -76,5 +76,9 @@ module Bookmarks
 			Notifier.new self.email
 		end
 
+		def newest_bookmarks(n=10)
+			self.bookmarks.sort { |b1,b2| b2.created_at <=> b1.created_at }.first(n)
+		end
+
 	end
 end
