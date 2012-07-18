@@ -69,7 +69,7 @@ module Bookmarks
 		end
 
 		def bookmarks_with_tag(tag)
-			self.bookmarks.select { |bookmark| bookmark.tags.include? tag }
+			self.bookmarks.select { |bookmark| bookmark.tags.include? tag }.sort
 		end
 
 		def notifier
@@ -77,7 +77,7 @@ module Bookmarks
 		end
 
 		def newest_bookmarks(n=10)
-			self.bookmarks.sort { |b1,b2| b2.created_at <=> b1.created_at }.first(n)
+			self.bookmarks.sort.first(n)
 		end
 
 	end
