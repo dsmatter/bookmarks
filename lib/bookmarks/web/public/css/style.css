@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background: #b3d7f1;
   color: #1d6699;
+  overflow: scroll;
 }
 
 a {
@@ -179,6 +180,10 @@ input[type="submit"] {
 
 .list .actions div {
   cursor: pointer;
+}
+
+.left {
+  float: left;
 }
 
 .right {
@@ -373,7 +378,8 @@ input[type="submit"] {
   margin-left: -45px;
 }
 
-.list .bookmarks .tags li {
+.list .bookmarks .tags li,
+.list .bookmarks .timestamp {
   display: inline;
   font-size: 12px;
   margin-left: 5px;
