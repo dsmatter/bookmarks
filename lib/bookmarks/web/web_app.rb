@@ -361,6 +361,18 @@ e				redirect '/user'
 			end
 		end
 
+		get '/api/lists' do
+			begin
+				user = get_user_by_api_key(params[:token])
+				lists_a = user.lists.map do |list|
+					[list.id, list.title]
+				end
+				JSON.generate lists_a
+			rescue => e
+				400
+			end
+		end
+
 		get '/api/bookmarks/add' do
 			begin
 				# Find the user

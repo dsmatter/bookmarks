@@ -1,4 +1,5 @@
 require 'haml'
+require 'json'
 require "active_record"
 require "sqlite3"
 require "bookmarks/version"

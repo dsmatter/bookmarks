@@ -6,3 +6,4 @@ gemspec
 gem 'activerecord'
 gem 'sqlite3'
 gem 'sinatra'
+gem 'json'
