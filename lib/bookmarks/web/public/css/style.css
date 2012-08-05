@@ -108,7 +108,7 @@ input[type="submit"] {
 }
 
 #userpane ul {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding: 10px;
   /*background: #2070a7;*/
   border: 1px solid #3394d8;
@@ -116,6 +116,17 @@ input[type="submit"] {
 
 #userpane ul li {
   display: inline;
+}
+
+#searchbar {
+  margin-bottom: 30px;
+}
+
+#searchbar input {
+  background: #b3d7f1;
+  padding: 10px;
+  width: 100%;
+  font-size: 2em;
 }
 
 #logout {
@@ -409,3 +420,4 @@ input[type="submit"] {
 .draghover {
   background: #6cb2e3; 
 }
+

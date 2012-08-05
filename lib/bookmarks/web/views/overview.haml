@@ -1,4 +1,5 @@
 = render :haml, :partial_userpane, :locals => { :user => user }
+= render :haml, :partial_searchbar
 #nolists{:class => (user.lists.empty? ? 'hi' : 'hidden')} You have no lists :(
 
 #newest
