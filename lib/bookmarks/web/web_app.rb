@@ -78,6 +78,10 @@ module Bookmarks
 			User.find_by_id(session[:user])
 		end
 
+		def get_user_by_api_key(key)
+			Token.find_by_key!(key).user
+		end
+
 		def get_list(list_id)
 			list = List.find_by_id!(list_id)
 
@@ -379,6 +383,7 @@ e				redirect '/user'
 				end
 				JSON.generate lists_a
 			rescue => e
+				p e
 				400
 			end
 		end
