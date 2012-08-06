@@ -5,9 +5,20 @@ module Bookmarks
 	class LoginScreen < Sinatra::Base
 		enable :sessions
 
+		def get_user_by_api_key(key)
+			Token.find_by_key!(key).user
+		end
+
 		get '/login' do
 			redirect '/' if session[:user]
-			haml :login
+
+			if params[:token]
+				user = get_user_by_api_key(params[:token])
+				session[:user] = user
+				redirect '/'
+			else
+				haml :login
+			end
 		end
 
 		post '/login' do
@@ -65,10 +76,6 @@ module Bookmarks
 
 		def get_user
 			User.find_by_id(session[:user])
-		end
-
-		def get_user_by_api_key(key)
-			Token.find_by_key!(key).user
 		end
 
 		def get_list(list_id)
