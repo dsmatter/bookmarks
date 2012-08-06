@@ -379,8 +379,9 @@ e				redirect '/user'
 				user = get_user_by_api_key(params[:token])
 
 				# Get the list
-				list = params[:list] || user.lists.first
+				list = List.find_by_id!(params[:list]) || user.lists.first
 				raise 'No list' unless list
+				raise 'Access denied' unless list.users.include?(user)
 
 				# Add bookmark
 				new_bookmark = list.bookmarks.create! :title => params[:title], :url => params[:url]
