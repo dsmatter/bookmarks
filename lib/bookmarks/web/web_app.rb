@@ -90,6 +90,16 @@ module Bookmarks
 			title.strip
 		end
 
+		def add_bookmark(title, url, list)
+			tags = get_tags(title)
+			title = remove_tags(title, tags)
+
+			new_bookmark = list.bookmarks.create! :title => title, :url => url
+			new_bookmark.tags = tags
+			new_bookmark.save!
+			new_bookmark
+		end
+
 		get '/' do
 			haml :overview, :locals => {
 				:user => get_user
@@ -187,13 +197,7 @@ e				redirect '/user'
 
 		post '/bookmarks/quick_new' do
 			list = get_list(params[:list])
-			title = params[:title]
-			tags = get_tags(title)
-			title = remove_tags(title, tags)
-
-			new_bookmark = list.bookmarks.create! :title => title, :url => params[:url]
-			new_bookmark.tags = tags
-			new_bookmark.save!
+			add_bookmark params[:title], params[:url], list
 			new_bookmark.notify(get_user)
 			redirect '/'
 		end
@@ -224,7 +228,6 @@ e				redirect '/user'
 				bookmark.notify(get_user) if notify
 				haml :partial_bookmark, :layout => false, :locals => { :bookmark => bookmark }
 			rescue => e
-				p e
 				400
 			end
 		end
@@ -384,7 +387,7 @@ e				redirect '/user'
 				raise 'Access denied' unless list.users.include?(user)
 
 				# Add bookmark
-				new_bookmark = list.bookmarks.create! :title => params[:title], :url => params[:url]
+				new_bookmark = add_bookmark params[:title], params[:url], list
 				new_bookmark.notify(user)
 				"OK"
 			rescue => e
