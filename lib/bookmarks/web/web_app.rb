@@ -208,7 +208,7 @@ e				redirect '/user'
 
 		post '/bookmarks/quick_new' do
 			list = get_list(params[:list])
-			add_bookmark params[:title], params[:url], list
+			new_bookmark = add_bookmark params[:title], params[:url], list
 			new_bookmark.notify(get_user)
 			redirect '/'
 		end
