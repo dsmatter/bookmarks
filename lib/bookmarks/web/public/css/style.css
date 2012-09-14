@@ -421,3 +421,24 @@ input[type="submit"] {
   background: #6cb2e3; 
 }
 
+#sidebar {
+	display: none;
+	position: fixed;
+  background: #97c8eb;
+  border: 1px solid #3394d8;
+	padding: 0px 20px;
+}
+
+#sidebar ul {
+	list-style: none;
+	margin-left: -45px;
+}
+
+#sidebar ul li {
+	padding: 2px;
+	cursor: pointer;
+}
+
+#sidebar ul li.selected {
+  color: #288cd2;
+}

@@ -17,5 +17,9 @@ module Bookmarks
 		def notify_sharing_remove(user)
 			user.notifier.mail("[Bookmarks] You were removed from the list '#{self.title}'", '')
 		end
+
+		def <=>(other)
+			title <=> other.title
+		end
 	end
 end
