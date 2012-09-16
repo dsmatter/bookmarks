@@ -442,3 +442,8 @@ input[type="submit"] {
 #sidebar ul li.selected {
   color: #288cd2;
 }
+
+#showSidebar,
+#hideSidebar {
+	color: black;
+}
