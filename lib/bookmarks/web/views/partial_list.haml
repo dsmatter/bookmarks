@@ -7,7 +7,7 @@
 				%td
 					.actions.right
 						.edit&= "#{list.users.size} user#{list.users.size > 1 ? 's' : ''}"
-						%a{:href => "javascript:window.location = 'http://bm.smattr.de/bookmarks/quick_new?title=' + escape(document.title) + '&url=' + escape(window.location) + '&list=' + #{list.id}", :class => 'bookmarklet'}
+						%a{:href => "javascript:window.location = 'http://bm.smattr.de/bookmarks/quick_new?title=' + encodeURIComponent(document.title) + '&url=' + escape(window.location) + '&list=' + #{list.id}", :class => 'bookmarklet'}
 							bookmarklet
 						.delete 
 							.confirm unsubscribe
