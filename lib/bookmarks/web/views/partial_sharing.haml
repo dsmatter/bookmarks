@@ -7,5 +7,9 @@
 		#adduser.button add user
 		/ %form{:id => 'adduser_form', :class => 'hidden'}
 		#adduser_form.hidden
-			%label{:for => 'email'} Email
-			%input{:id => 'email', :name => 'email', :type => 'text'}
+			#add_friends
+				- user.friends.each do |friend|
+					= render :haml, :partial_sharing_friend, :locals => { :user => friend }
+			#add_new_friend
+				%label{:for => 'email'} Email
+				%input{:id => 'email', :name => 'email', :type => 'text'}

@@ -7,7 +7,7 @@ module Bookmarks
 		has_and_belongs_to_many :tags
 		before_create :initial_values
 		validates_format_of :url, :with => URI::regexp(%w(http https))
-		
+
 		def initial_values
 			self.created_at = Time.now
 		end

@@ -198,7 +198,7 @@ e				redirect '/user'
 		end
 
 		get '/bookmarks/quick_new' do
-			haml :quick_new, :locals => { 
+			haml :quick_new, :locals => {
 				:user => get_user,
 				:title => params[:title] || 'New bookmark',
 				:url => params[:url] || 'http://',
@@ -243,6 +243,19 @@ e				redirect '/user'
 			end
 		end
 
+		get '/bookmark/:id' do
+			begin
+				bookmark = Bookmark.find_by_id(params[:id])
+
+				# Check if bookmark belongs to user
+				raise 'Access denied' unless bookmark.list.users.include? get_user
+
+				haml :partial_edit_bookmark, :layout => false, :locals => { :bookmark => bookmark }
+			rescue => e
+				400
+			end
+		end
+
 		get '/bookmark/:bookmark_id/move/:list_id' do
 			begin
 				bookmark = Bookmark.find_by_id!(params[:bookmark_id])
@@ -252,7 +265,7 @@ e				redirect '/user'
 
 				old_list = bookmark.list
 				new_list = get_list(params[:list_id])
-				
+
 				bookmark.list = new_list
 				bookmark.save!
 				haml :partial_list, :layout => false, :locals => { :list => old_list }
@@ -264,7 +277,7 @@ e				redirect '/user'
 		get '/lists/sharing/:id' do
 			begin
 				list = get_list(params[:id])
-				haml :partial_sharing, :layout => false, :locals => { :list => list }
+				haml :partial_sharing, :layout => false, :locals => { :list => list, :user => get_user }
 			rescue => e
 				400
 			end
@@ -285,6 +298,7 @@ e				redirect '/user'
 				end
 
 				raise 'Cannot add yourself' if user == get_user
+				raise 'Already in list' if list.users.include?(user)
 
 				list.users << user
 				list.save!
@@ -316,8 +330,8 @@ e				redirect '/user'
 		get '/tags/:tag' do
 			begin
 				tag = Tag.find_by_name!(params[:tag])
-				haml :bookmarks, :locals => { 
-					:user => get_user, 
+				haml :bookmarks, :locals => {
+					:user => get_user,
 					:bookmarks => get_user.bookmarks_with_tag(tag),
 					:title => "Tagged with '#{tag.name}'"
 				}
@@ -331,6 +345,7 @@ e				redirect '/user'
 		get '/newest' do
 			begin
 				haml :partial_bookmarks, :layout => false, :locals => {
+					:id => 'newest',
 					:title => 'Newest bookmarks',
 					:bookmarks => get_user.newest_bookmarks
 				}

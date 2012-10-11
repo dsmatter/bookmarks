@@ -447,3 +447,7 @@ input[type="submit"] {
 #hideSidebar {
 	color: black;
 }
+
+#add_new_friend {
+  margin-top: 30px;
+}
