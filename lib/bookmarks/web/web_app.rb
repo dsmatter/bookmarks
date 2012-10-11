@@ -250,7 +250,7 @@ e				redirect '/user'
 				# Check if bookmark belongs to user
 				raise 'Access denied' unless bookmark.list.users.include? get_user
 
-				haml :partial_edit_bookmark, :layout => false, :locals => { :bookmark => bookmark }
+				haml :partial_edit_bookmark, :layout => false, :locals => { :bookmark => bookmark, :user => get_user }
 			rescue => e
 				400
 			end

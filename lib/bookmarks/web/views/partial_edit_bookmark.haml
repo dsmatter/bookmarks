@@ -1,2 +1,6 @@
 %input{:type => 'text', :class => 'title', :value => bookmark.title_with_tags}
 %input{:type => 'text', :class => 'url', :value => bookmark.url}
+.list_select
+	%select{:class => 'listselect'}
+		- user.lists.each do |list|
+			%option{:value => list.id, :selected => bookmark.list == list}= list.title
