@@ -1,26 +1,41 @@
 body {
-  font-family: sans-serif;
-  background: #b3d7f1;
-  color: #1d6699;
+  font-family: "PT Serif" Georgia sans-serif;
+  font-size:  1.1em;
+  background: #f2f2f2;
+  color: #5D5D5D;
   overflow: scroll;
+  text-rendering: optimizelegibility;
 }
 
 a {
-  color: #0f3652;
+  color: #761D1D;
   text-decoration: none;
 }
 
 a:hover {
-  color: #288cd2;
+  color: #BB5151;
+}
+
+.bookmarks .actions {
+  color: #761D1D;
+}
+
+.bookmarks a {
+  color: #76451D;
+  text-decoration: none;
+}
+
+.bookmarks a:hover {
+  color: #BB906D;
 }
 
 #area {
-  background: #97c8eb;
+  background: #f8f8f8 url('/images/noise.png');
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   width: 800px;
-  box-shadow: 2px 2px 8px 1px #0f3652;
+  box-shadow: 0px 0px 1px 0px #5D5D5D;
 }
 
 #content {
@@ -44,7 +59,8 @@ a:hover {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 50px;
-  text-shadow: 5px #624e38;
+  color: #761D1D;
+  /*text-shadow: 5px #624e38;*/
 }
 
 .hidden {
@@ -53,7 +69,7 @@ a:hover {
 
 .hline {
   margin: 20px;
-  border: 1px solid #0f3652;
+  border: 1px solid #761D1D;
 }
 
 #login,
@@ -104,14 +120,14 @@ input[type="submit"] {
   text-align: center;
   font-size: small;
   padding: 20px;
-  color: #97c8eb;
+  color: #761D1D;
 }
 
 #userpane ul {
   margin-bottom: 30px;
   padding: 10px;
-  /*background: #2070a7;*/
-  border: 1px solid #3394d8;
+  background: rgba(200,200,200,0.1);
+  box-shadow: 0px 0px 1px 0px #5D5D5D;
 }
 
 #userpane ul li {
@@ -133,33 +149,20 @@ input[type="submit"] {
   float: right;
 }
 
-#addlist {
-  font-size: 1.2em;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #3394d8;
-  cursor: pointer;
-}
-
-#addlist.selected {
-  color: #88c1e9;
-  background: #2583c4;
-}
-
 #nolists {
   margin-bottom: 40px;
 }
 
 .list {
-  /*background: #deeef9;*/
+  background: rgba(200,200,200,0.1);
   padding: 30px;
   margin-bottom: 50px;
-  border: 1px solid #3394d8;
-  /*box-shadow: 2px 2px 8px 1px #124060;*/
+  /*border: 1px solid #761D1D;*/
+  box-shadow: 0px 0px 1px 0px #5D5D5D;
 }
 
 .list_header {
-  background: #88c1e9;
+  background: rgba(200,200,200,0.2);
   padding-left: 20px;
   padding-right: 10px;
   padding-top: 10px;
@@ -172,21 +175,33 @@ input[type="submit"] {
 
 .list .title {
   display: inline;
-  /*color: #FFE69F;*/
-  font-size: 1.4em;
+  color: #761D1D;
+  font-size: 1.7em;
   font-weight: bold;
 }
 
 .list .title.selected {
-  color: #288cd2;
+  color: #BB5151;
 }
 
 .list .actions {
-  color: #0f3652;
+  color: #761D1D;
   font-weight: bold;
   text-align: right;
   padding-left: 20px;
   padding-right: 10px;
+}
+
+.list .actions .delete {
+  color: #BB5151;
+}
+
+.list .actions .delete div.selected {
+  color: #BB906D;
+}
+
+.list .actions div.selected {
+  color: #BB6D6D;
 }
 
 .list .actions div {
@@ -202,7 +217,7 @@ input[type="submit"] {
 }
 
 .list .edit.selected {
-  color: #288cd2;
+  color: #BB5151;
 }
 
 .list .delete_bookmark {
@@ -218,7 +233,7 @@ input[type="submit"] {
 
 .list .delete .confirm.selected,
 .delete_bookmark.selected {
-  color: #A6401A;
+  color: #BB5151;
 }
 
 .list .delete .cancel {
@@ -227,13 +242,13 @@ input[type="submit"] {
 }
 
 .list .delete .cancel.selected {
-  color: #A6401A;
+  color: #BB5151;
 }
 
 .list .bookmarks {
   padding: 20px;
   /*background: #419cdb;*/
-  border: 1px solid #3394d8;
+  /*border: 1px solid #761D1D;*/
   margin-left: 10px;
   clear: both;
   margin-top: 30px;
@@ -257,19 +272,16 @@ input[type="submit"] {
   padding: 10px;
   margin-top: 20px;
   margin-left: 10px;
-  border: 1px solid #3394d8;
+  /*border: 1px solid rgba(200,200,200,0.4);*/
+  background: rgba(200,200,200,0.2);
   cursor: pointer;
 }
 
 .button.selected,
 .addbookmark.selected,
 #addtoken.selected {
-  color: #88c1e9;
-  background: #2583c4;
-}
-
-.button {
-  color: #1d6699;
+  color: #4D0909;
+  background: #BB5151;
 }
 
 .bookmarklet {
@@ -285,7 +297,7 @@ input[type="submit"] {
 }
 
 .edit_bookmark.selected {
-  color: #288cd2;
+  color: #BB5151;
 }
 
 .link a {
@@ -340,7 +352,7 @@ input[type="submit"] {
 }
 
 .centerbox {
-  background: #b3d7f1;
+  background: #FDFDFD;
   width: 400px;
   margin-left: auto;
   margin-right: auto;
@@ -368,7 +380,8 @@ input[type="submit"] {
 }
 
 .user.selected {
-  background: #97c8eb;
+  background: #BB6D6D;
+  color: #4D0909;
 }
 
 #adduser_form {
@@ -397,11 +410,7 @@ input[type="submit"] {
 }
 
 .tags a {
-  color: #1d6699;
-}
-
-.tags a:hover {
-  color: #288cd2;
+  color: #124747;
 }
 
 .status {
@@ -424,9 +433,9 @@ input[type="submit"] {
 #sidebar {
 	display: none;
 	position: fixed;
-  background: #97c8eb;
-  border: 1px solid #3394d8;
+  background: #f8f8f8 url('/images/noise.png');
 	padding: 0px 20px;
+  box-shadow: 0px 0px 1px 0px #5D5D5D;
 }
 
 #sidebar ul {
@@ -437,17 +446,22 @@ input[type="submit"] {
 #sidebar ul li {
 	padding: 2px;
 	cursor: pointer;
+  color: #761D1D;
 }
 
 #sidebar ul li.selected {
-  color: #288cd2;
+  color: #BB5151;
 }
 
-#showSidebar,
-#hideSidebar {
+#sidebar ul #showSidebar,
+#sidebar ul #hideSidebar {
 	color: black;
 }
 
 #add_new_friend {
   margin-top: 30px;
+}
+
+#sharing h2 {
+  color :#761D1D;
 }
