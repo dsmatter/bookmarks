@@ -1,4 +1,4 @@
-#user
+#user.form
 	%h2 User info
 	%form{:id => 'user_form', :method => 'POST', :action => '/user'}
 		.username
@@ -22,4 +22,4 @@
 	%h2 Tokens
 	- user.tokens.each do |token|
 		= render :haml, :partial_token, :locals => { :token => token }
-#addtoken add token
+#addtoken.button add token

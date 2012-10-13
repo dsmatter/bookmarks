@@ -18,3 +18,4 @@ tmp
 *.sublime*
 all.min.*
 *.un~
+.sass-cache

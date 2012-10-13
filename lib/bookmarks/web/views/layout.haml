@@ -6,14 +6,14 @@
     %title Bookmarks
   %body 
     %script{:language => 'javascript', :src => '/js/all.min.js'}
-    #area
-      #header
+    #area.area
+      #header.header
         %a{:href => '/'}Bookmarks
       .hline
       .enclosing
-      #content
+      #content.content
         = yield
-    #footer
+    #footer.footer
       (c) 2012 by Daniel Strittmatter
   .overlay.hidden
     .centerbox

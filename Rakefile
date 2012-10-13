@@ -50,8 +50,18 @@ task :unminify_js do
 	end
 end
 
+desc 'Compile SASS files'
+task :compile_sass do
+	Dir[File.join css_dir, '*.scss'].each do |fn|
+		out_fn = "#{fn.chomp(File.extname fn)}.css"
+		cmd = "sass \"#{File.expand_path fn}\" > \"#{File.expand_path out_fn}\""
+		puts cmd
+		system cmd
+	end
+end
+
 desc 'Minify css files'
-task :minify_css do
+task :minify_css => [:compile_sass] do
 	File.truncate(File.join(css_dir, css_all), 0)
 	cmd = "cat #{css_dir}/*.css | cleancss -o #{File.join css_dir, css_all}"
 	puts cmd
@@ -59,7 +69,7 @@ task :minify_css do
 end
 
 desc 'Unminify css files'
-task :unminify_css do
+task :unminify_css => [:compile_sass] do
 	open(File.join(css_dir, css_all), 'w') do |f|
 		Dir[File.join css_dir, '*.css'].each do |fn|
 			next if fn =~ /\/all\.min\.css/
