@@ -8,7 +8,7 @@ require File.expand_path('../lib/bookmarks/db/config', __FILE__)
 public_dir = File.expand_path('../lib/bookmarks/web/public', __FILE__)
 js_dir     = File.join(public_dir, 'js')
 js_order   = ['jquery-1.7.2.min.js', 'jquery-ui.min.js', 'jquery-ui-timepicker-addon.js', 
-			  'jquery.showLoading.min.js', 'overview.js']
+			  'jquery.showLoading.min.js', 'bootstrap.min.js', 'overview.js']
 js_all     = 'all.min.js'
 
 css_dir    = File.join(public_dir, 'css')

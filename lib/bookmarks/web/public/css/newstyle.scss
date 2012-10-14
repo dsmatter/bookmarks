@@ -3,7 +3,6 @@ $body_back-color: #f2f2f2;
 $area-back-color: #f8f8f8;
 $content-back-color: rgba(200,200,200,0.1);
 $list-back-color: rgba(200,200,200,0.2);
-$search-back-color: #b3d7f1;
 $main-font-color: #5d5d5d;
 $link-color: #761D1D;
 $link-hover-color: #BB5151;
@@ -11,6 +10,10 @@ $link-hover-color2: #BB906D;
 $bookmark-color: #124747;
 $bookmark-hover-color: #761D1D;
 $shadow-color: #5d5d5d;
+$search-back-color: #b3d7f1;
+$search-border-color: $link-color;
+$search-shadow-color: rgba(118,29,29,0.6);
+$sidebar-border-color: #e5e5e5;
 $darkred: #4D0909;
 $black: #000000;
 $red: #ff0000;
@@ -80,7 +83,7 @@ a {
 
 // User pane
 .userpane ul {
-	margin-bottom: 30px;
+	margin: 0 0 30px 0;
 	padding: 10px;
 	background: $content-back-color;
 	box-shadow: 0px 0px 1px 0px $shadow-color;
@@ -95,10 +98,16 @@ a {
 	margin-bottom: 30px;
 
 	input {
-		background: $search-back-color;
-		padding: 10px;
-		width: 100%;
-		font-size: 2em;
+		width: 98%;
+	}
+}
+
+input[type=search],
+input[type=text],
+input[type=password] {
+	&:focus {
+		border-color: $search-border-color !important;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px $search-shadow-color !important;
 	}
 }
 
@@ -192,13 +201,12 @@ a {
 					font-size: 0.8em !important; 
 				}
 				.tags ul {
-					margin-left: -45px;
-					margin-top: 3px;
+					margin: 3px 0 0 0;
 
 					li {
 						display: inline;
 						font-size: 12px;
-						margin-left: 5px;
+						margin-left: 0;
 					}
 				}
 				.timestamp {
@@ -228,31 +236,58 @@ a {
 }
 
 // Side bar
+
 .sidebar {
 	display: none;
 	position: fixed;
-	background: $area-back-color url('/images/noise.png');
-	padding: 0px 20px;
-	box-shadow: 0px 0px 1px 0px $shadow-color;
+	width: 250px;
+	margin: 30px 0 0;
+	padding: 0;
+	border-radius: 6px;
+	background: rgba(255,255,255,0.3);
+	box-shadow: 0 1px 4px rgba(0,0,0,.065);
 
 	ul {
-		list-style: none;
-		margin-left: -45px;
-
+		padding-left: 0;
+		padding-right: 0;
 		li {
-			padding: 2px;
-			cursor: pointer;
-			color: $link-color;
-
-			&.selected {
-				color: $link-hover-color;
+			a {
+				border: 1px solid $sidebar-border-color;
+				padding: 8px 14px;
+				margin: 0 0 -1px;
 			}
-			&#hideSidebar,
-			&#showSidebar {
-				color: black;
+			&.active {
+				a {
+					background-color: $link-color;
+					&:hover {
+						background-color: $link-color;
+					}
+				}
 			}
 		}
 	}
+// 	background: $area-back-color url('/images/noise.png');
+// 	padding: 0px 20px;
+// 	box-shadow: 0px 0px 1px 0px $shadow-color;
+
+// 	ul {
+// 		list-style: none;
+// 		margin-left: -45px;
+
+// 		li {
+// 			padding: 2px;
+// 			cursor: pointer;
+// 			color: $link-color;
+
+// 			&.selected {
+// 				color: $link-hover-color;
+// 			}
+// 			&#hideSidebar,
+// 			&#showSidebar {
+// 				color: black;
+// 			}
+// 		}
+// 	}
 }
 
 // Overlay
@@ -317,19 +352,13 @@ a {
 // Input fields
 input[type="text"],
 input[type="password"] {
-	font-family: sans-serif;
-	font-size: 0.8em;
-	line-height: 140%;
-	padding: 3px;
-	border: 1px solid #18537c;
-	border-radius: 5px;
-	margin-bottom: 20px;
+	height: 30px !important;
 	width: 90%;
 }
 
 input[type="submit"] {
 	display: block;
-	width: 100px;
+	width: 100px	;
 }
 
 // Register page
