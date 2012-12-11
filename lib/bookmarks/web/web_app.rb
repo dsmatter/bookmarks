@@ -341,7 +341,8 @@ e				redirect '/user'
 				haml :bookmarks, :locals => {
 					:user => get_user,
 					:bookmarks => get_user.bookmarks_with_tag(tag),
-					:title => "Tagged with '#{tag.name}'"
+					:title => "Tagged with '#{tag.name}'",
+					:id => tag.name
 				}
 			rescue => e
 				p e
