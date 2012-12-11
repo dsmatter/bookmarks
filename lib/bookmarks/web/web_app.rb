@@ -97,7 +97,7 @@ module Bookmarks
 		end
 
 		def remove_tags(title, tags)
-			tags.map(&:name).each { |tag| title.sub! /@#{tag}/, ''}
+			tags.map(&:name).each { |tag| title.sub!(/@#{tag}/, '') }
 			title.strip
 		end
 
