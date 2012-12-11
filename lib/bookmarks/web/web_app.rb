@@ -157,6 +157,7 @@ e				redirect '/user'
 					:list => list
 				}
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -179,6 +180,7 @@ e				redirect '/user'
 				list.update_attributes :title => params[:title]
 				"OK"
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -218,6 +220,7 @@ e				redirect '/user'
 				Bookmark.find_by_id!(params[:id]).delete
 				"OK"
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -239,6 +242,7 @@ e				redirect '/user'
 				bookmark.notify(get_user) if notify
 				haml :partial_bookmark, :layout => false, :locals => { :bookmark => bookmark }
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -252,6 +256,7 @@ e				redirect '/user'
 
 				haml :partial_edit_bookmark, :layout => false, :locals => { :bookmark => bookmark, :user => get_user }
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -270,6 +275,7 @@ e				redirect '/user'
 				bookmark.save!
 				haml :partial_list, :layout => false, :locals => { :list => old_list }
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -279,6 +285,7 @@ e				redirect '/user'
 				list = get_list(params[:id])
 				haml :partial_sharing, :layout => false, :locals => { :list => list, :user => get_user }
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -305,6 +312,7 @@ e				redirect '/user'
 				list.notify_sharing_add(user)
 				haml :partial_sharing_user, :layout => false, :locals => { :user => user }
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -350,6 +358,7 @@ e				redirect '/user'
 					:bookmarks => get_user.newest_bookmarks
 				}
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -361,6 +370,7 @@ e				redirect '/user'
 				User.find_by_username!(params[:username]);
 				200
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -372,6 +382,7 @@ e				redirect '/user'
 					:token => new_token
 				}
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -386,6 +397,7 @@ e				redirect '/user'
 				token.delete
 				"OK"
 			rescue => e
+				p e
 				400
 			end
 		end
@@ -418,6 +430,7 @@ e				redirect '/user'
 				new_bookmark.notify(user)
 				"OK"
 			rescue => e
+				p e
 				400
 			end
 		end
