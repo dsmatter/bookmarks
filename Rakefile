@@ -14,6 +14,10 @@ js_all     = 'all.min.js'
 css_dir    = File.join(public_dir, 'css')
 css_all    = 'all.min.css'
 
+### Deploy Server Config
+
+server_hostname = "smatterling.de"
+
 ### Tasks
 
 task :default => :migrate
@@ -88,8 +92,8 @@ end
 
 desc 'Deploy'
 task :deploy => [:production, :build] do
-	system "scp pkg/*.gem dawn:"
-	system "ssh dawn 'GEM_HOME=~/.gems gem install *.gem'"
-	system "ssh dawn '/etc/rc.d/bookmarks restart'"
+	system "scp pkg/*.gem #{server_hostname}:/tmp"
+	system "ssh #{server_hostname} 'GEM_HOME=~/.gems gem install /tmp/bookmarks*.gem'"
+	system "ssh #{server_hostname} '/etc/rc.d/bookmarks restart'"
 	system "rake development"
 end
