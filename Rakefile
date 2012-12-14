@@ -44,7 +44,7 @@ end
 
 desc 'Minify js files'
 task :minify_js do
-	closure_cmd_prefix = 'java -jar closure_compiler.jar'
+	closure_cmd_prefix = 'uglifyjs'
 	cmd = '%s %s > %s' % [
 		closure_cmd_prefix,
 		js_order.map { |fn| '"' + File.join(js_dir, fn) + '"' }.join(' '),
