@@ -18,7 +18,7 @@ css_all    = 'all.min.css'
 
 server_host = 'smatterling.de'
 server_user = 'bookmarks'
-server_dir  = '/var/bookmarks'
+server_dir  = '/srv/bookmarks'
 
 ### Helper
 
@@ -100,14 +100,14 @@ task :development => [:unminify_js, :unminify_css] do
 end
 
 desc 'Deploy'
-task :deploy => [:production] do
+task :deploy do
 	# Check if we have a clean git repo
-	if system('git diff --quiet --exit-code') != 0
+	if !system('git diff --quiet --exit-code')
 		puts 'Please commit first!'
 		exit 1
 	end
 
-	shell "ssh ${server_host} -- sh -c \"cd ${server_dir} && sudo -u ${server_user} bundle exec rake update\""
+	shell "ssh #{server_host} -- 'sh -c \"cd #{server_dir} && sudo -u #{server_user} bundle exec rake update\"'"
 end
 
 desc 'Start production server'
