@@ -16,7 +16,16 @@ css_all    = 'all.min.css'
 
 ### Deploy Server Config
 
-server_hostname = "smatterling.de"
+server_host = 'smatterling.de'
+server_user = 'bookmarks'
+server_dir  = '/var/bookmarks'
+
+### Helper
+
+def shell(cmd)
+	puts cmd
+	system cmd
+end
 
 ### Tasks
 
@@ -91,9 +100,31 @@ task :development => [:unminify_js, :unminify_css] do
 end
 
 desc 'Deploy'
-task :deploy => [:production, :build] do
-	system "scp pkg/*.gem #{server_hostname}:/tmp"
-	system "ssh #{server_hostname} 'GEM_HOME=~/.gems gem install /tmp/bookmarks*.gem'"
-	system "ssh #{server_hostname} '/etc/rc.d/bookmarks restart'"
-	system "rake development"
+task :deploy => [:production] do
+	# Check if we have a clean git repo
+	if system('git diff --quiet --exit-code') != 0
+		puts 'Please commit first!'
+		exit 1
+	end
+
+	shell "ssh ${server_host} -- sh -c \"cd ${server_dir} && sudo -u ${server_user} bundle exec rake update\""
+end
+
+desc 'Start production server'
+task :start => [:production] do
+	shell "bundle exec unicorn -c unicorn.rb -D"
+end
+
+desc 'Stop production server'
+task :stop do
+	shell "kill -QUIT $(cat /tmp/pids/reminders.pid)"
+end
+
+desc 'Restart the production server'
+task :restart => [:stop, :start]
+
+desc 'Update the production server'
+task :update => [:stop, :development] do
+	shell 'git pull'
+	Rake::Task[:start].invoke
 end
