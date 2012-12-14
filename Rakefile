@@ -117,7 +117,7 @@ end
 
 desc 'Stop production server'
 task :stop do
-	shell "kill -QUIT $(cat /tmp/pids/reminders.pid)"
+	shell "kill -QUIT $(cat /tmp/pids/bookmarks.pid)"
 end
 
 desc 'Restart the production server'
