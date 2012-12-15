@@ -11,11 +11,11 @@ require 'mina/git'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'smatterling.de'
-set :deploy_to, '/srv/bookmarks2'
+set :deploy_to, '/srv/bookmarks'
 set :user, 'bookmarks'
 set :identity_file, 'keys/deploy.pem'
 set :repository, 'git@smatterling.de:smatter/bookmarks.git'
-set :branch, 'deployment'
+set :branch, 'master'
 set :server_pid, '/tmp/pids/bookmarks.pid'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
