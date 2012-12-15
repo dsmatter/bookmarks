@@ -19,6 +19,7 @@ css_all    = 'all.min.css'
 server_host = 'smatterling.de'
 server_user = 'bookmarks'
 server_dir  = '/srv/bookmarks'
+server_pid  = '/tmp/pids/bookmarks.pid'
 
 ### Helper
 
@@ -99,32 +100,15 @@ desc 'Change to development environment'
 task :development => [:unminify_js, :unminify_css] do
 end
 
-desc 'Deploy'
-task :deploy do
-	# Check if we have a clean git repo
-	if !system('git diff --quiet --exit-code')
-		puts 'Please commit first!'
-		exit 1
-	end
-
-	shell "ssh #{server_host} -- 'sh -c \"cd #{server_dir} && sudo -u #{server_user} bundle exec rake update\"'"
-end
-
 desc 'Start production server'
 task :start => [:production] do
-	shell "bundle exec unicorn -c unicorn.rb -D"
+	shell "bundle exec foreman start"
 end
 
 desc 'Stop production server'
 task :stop do
-	shell "kill -QUIT $(cat /tmp/pids/bookmarks.pid)"
+	shell "kill -QUIT $(cat #{server_pid})"
 end
 
 desc 'Restart the production server'
 task :restart => [:stop, :start]
-
-desc 'Update the production server'
-task :update => [:stop, :development] do
-	shell 'git pull'
-	Rake::Task[:start].invoke
-end
