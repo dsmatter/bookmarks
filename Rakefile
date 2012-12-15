@@ -76,7 +76,6 @@ end
 
 desc 'Minify css files'
 task :minify_css => [:compile_sass] do
-	File.truncate(File.join(css_dir, css_all), 0)
 	cmd = "cat #{css_dir}/*.css | cleancss -o #{File.join css_dir, css_all}"
 	puts cmd
 	system cmd
