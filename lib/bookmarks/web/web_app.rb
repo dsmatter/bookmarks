@@ -117,6 +117,12 @@ module Bookmarks
 			}
 		end
 
+		get '/overview.ajax' do
+			haml :overview, :layout => false, :locals => {
+				:user => get_user
+			}
+		end
+
 		get '/user' do
 			haml :user, :locals => {
 				:user => get_user
@@ -212,7 +218,11 @@ e				redirect '/user'
 			list = get_list(params[:list])
 			new_bookmark = add_bookmark params[:title], params[:url], list
 			new_bookmark.notify(get_user)
-			redirect '/'
+			redirect '/success'
+		end
+
+		get '/success' do
+			haml :success
 		end
 
 		delete '/bookmark/:id' do

@@ -37,6 +37,10 @@ a {
 	}
 }
 
+h1, h2, h3, h4 {
+	color: $bookmark-color;
+}
+
 // Area
 .area {
 	background: $area-back-color url('/images/noise.png');
@@ -426,6 +430,12 @@ input[type="submit"] {
 
 .left {
 	float: left;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 .padding {
