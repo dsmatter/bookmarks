@@ -50,11 +50,20 @@ preload_app true
 listen "/tmp/bookmarks.socket"
 pid "/tmp/pids/bookmarks.pid"]
 
+  database_stub = %[---
+adapter: sqlite3
+database: db/bookmarks.db
+pool: 20]
+
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
 
   queue! %[mkdir -p "#{deploy_to}/shared/db"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/db"]
+
+  queue! %[touch "#deploy_to/shared/config/database.yaml"]
+  queue! %[echo '#{database_stub}' > #deploy_to/shared/config/database.yaml]
+  queue  %[echo "-----> Be sure to edit 'shared/config/database.yaml'"]
 
   queue! %[touch "#{deploy_to}/shared/config/unicorn.rb"]
   queue! %[echo '#{unicorn_stub}' > #{deploy_to}/shared/config/unicorn.rb]
