@@ -1,7 +1,7 @@
 require 'haml'
 require 'json'
 require "active_record"
-require "sqlite3"
+require "memcache"
 require "bookmarks/version"
 require "bookmarks/db/config"
 require "bookmarks/web/web_app"
@@ -16,6 +16,39 @@ module Bookmarks
 	require_dirs.each do |dir|
 		Dir[File.join(File.dirname(__FILE__), dir) + '/*.rb'].each do |file|
 			require file
+		end
+	end
+
+	class OverviewCache
+		PREFIX = 'overview'
+
+		def self.connect
+			@@connection ||= MemCache.new('localhost:11211')
+		end
+
+		def self.get(user)
+			connect
+			begin
+				@@connection.get("#{PREFIX}-#{user.id}")
+			rescue
+				nil
+			end
+		end
+
+		def self.set(user, result)
+			connect
+			begin
+				@@connection.set("#{PREFIX}-#{user.id}", result)
+			rescue
+			end
+		end
+
+		def self.invalidate(user)
+			connect
+			begin
+				@@connection.delete("#{PREFIX}-#{user.id}")
+			rescue
+			end
 		end
 	end
 

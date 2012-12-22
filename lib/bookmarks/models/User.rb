@@ -12,8 +12,16 @@ module Bookmarks
 		before_validation :setup_passphrase
 		before_create :initial_values
 
+		before_save :invalidate_cache
+		before_update :invalidate_cache
+		before_destroy :invalidate_cache
+
+		def invalidate_cache
+			OverviewCache.invalidate(self)
+		end
+
 		def self.random_string(len)
-			chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a			
+			chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
 			result = ''
 			len.times do
 				result << chars[rand(chars.size)]

@@ -8,8 +8,16 @@ module Bookmarks
 		before_create :initial_values
 		validates_format_of :url, :with => URI::regexp(%w(http https))
 
+		before_save :invalidate_cache
+		before_update :invalidate_cache
+		before_destroy :invalidate_cache
+
 		def initial_values
 			self.created_at = Time.now
+		end
+
+		def invalidate_cache
+			self.list.users.each { |u| OverviewCache.invalidate(u) }
 		end
 
 		def title_with_tags
