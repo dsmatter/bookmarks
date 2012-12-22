@@ -5,6 +5,7 @@ gemspec
 
 gem 'activerecord'
 gem 'sqlite3'
+gem 'memcache-client'
 gem 'sinatra'
 gem 'json'
 gem 'haml'

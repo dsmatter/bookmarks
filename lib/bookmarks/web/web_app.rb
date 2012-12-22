@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'uri'
+require 'memcache'
 
 module Bookmarks
 	class LoginScreen < Sinatra::Base
@@ -112,9 +113,16 @@ module Bookmarks
 		end
 
 		get '/' do
-			haml :overview, :locals => {
+			@@memcache_connection ||= MemCache.new('localhost:11211')
+			key = "overview-#{get_user.id}"
+			result = @@memcache_connection.get(key)
+			return result if result
+
+			result = haml :overview, :locals => {
 				:user => get_user
 			}
+			@@memcache_connection.set(key, result)
+			result
 		end
 
 		get '/overview.ajax' do
