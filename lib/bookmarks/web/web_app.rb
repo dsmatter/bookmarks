@@ -456,5 +456,28 @@ e				redirect '/user'
 				400
 			end
 		end
+
+		get '/api/bookmarks' do
+			begin
+				# Find the user
+				user = get_user_by_api_key(params[:token])
+
+				bookmarks_json = Hash.new
+				user.lists.each do |list|
+					bookmarks = list.bookmarks.map do |bm|
+						{
+							title: bm.title,
+							url:   bm.url,
+							tags:  bm.tags.map(&:name)
+						}
+					end
+					bookmarks_json[list.title.to_sym] = bookmarks
+				end
+				JSON.generate(bookmarks_json)
+			rescue => e
+				p e
+				400
+			end
+		end
 	end
 end
