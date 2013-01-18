@@ -22,12 +22,16 @@ module Bookmarks
 	class OverviewCache
 		PREFIX = 'overview'
 
+		def self.connect!
+			@@connection = MemCache.new('localhost:11211')
+		end
+
 		def self.connect
-			@@connection ||= MemCache.new('localhost:11211')
+			connect! if !@@connection
 		end
 
 		def self.get(user)
-			connect
+			connect!
 			begin
 				@@connection.get("#{PREFIX}-#{user.id}")
 			rescue
@@ -36,7 +40,7 @@ module Bookmarks
 		end
 
 		def self.set(user, result)
-			connect
+			connect!
 			begin
 				@@connection.set("#{PREFIX}-#{user.id}", result)
 			rescue
@@ -44,7 +48,7 @@ module Bookmarks
 		end
 
 		def self.invalidate(user)
-			connect
+			connect!
 			begin
 				@@connection.delete("#{PREFIX}-#{user.id}")
 			rescue
