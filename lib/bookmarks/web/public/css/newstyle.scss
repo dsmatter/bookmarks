@@ -151,6 +151,13 @@ input[type=password] {
 		padding-left: 20px;
 		padding-right: 10px;
 
+		a {
+			&:hover {
+				text-decoration: none;
+				color: $link-hover-color;
+			}
+		}
+
 		div {
 			cursor: pointer;
 			&.selected {

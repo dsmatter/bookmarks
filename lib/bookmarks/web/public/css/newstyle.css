@@ -96,6 +96,9 @@ input[type=password]:focus {
     text-align: right;
     padding-left: 20px;
     padding-right: 10px; }
+    .list .actions a:hover {
+      text-decoration: none;
+      color: #bb5151; }
     .list .actions div {
       cursor: pointer; }
       .list .actions div.selected {
