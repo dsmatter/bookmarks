@@ -111,3 +111,8 @@ end
 
 desc 'Restart the production server'
 task :restart => [:stop, :start]
+
+desc 'Start SASS -> CSS transforming'
+task :livecss do
+	shell "sass --watch #{css_dir}/newstyle.scss"
+end
