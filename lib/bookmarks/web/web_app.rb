@@ -239,6 +239,7 @@ e				redirect '/user'
 		delete '/bookmark/:id' do
 			begin
 				Bookmark.find_by_id!(params[:id]).delete
+				OverviewCache.invalidate(get_user)
 				"OK"
 			rescue => e
 				p e
