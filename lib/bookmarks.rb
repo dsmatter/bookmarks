@@ -64,9 +64,12 @@ module Bookmarks
 
 		def mail(subject, content)
 			begin
+				# Use local variable because @email confuses mail
+				# in the block context
+				mail_addr = @email
 				Mail.deliver do
 					from 		"bookmarks@smatterling.de"
-					to   		@email
+					to   		mail_addr
 					subject subject
 					body    content
 				end
