@@ -5,6 +5,7 @@ require "memcache"
 require "bookmarks/version"
 require "bookmarks/db/config"
 require "bookmarks/web/web_app"
+require "mail"
 
 
 module Bookmarks
@@ -63,9 +64,12 @@ module Bookmarks
 
 		def mail(subject, content)
 			begin
-				cmd = "echo \"#{content}\" | mail -s \"#{subject}\" \"#{@email}\""
-				puts cmd
-				system cmd
+				Mail.deliver do
+					from 		"bookmarks@smatterling.de"
+					to   		@email
+					subject subject
+					body    content
+				end
 			rescue # may fail
 			end
 		end
