@@ -1,6 +1,9 @@
 # Bookmarks
 A self-hosted bookmark service
 
+## Deprecated
+See [the new version](http://github.com/smatter0ne/smarks)
+
 ## Installation
     bundle install
     mkdir db
